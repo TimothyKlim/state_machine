@@ -538,7 +538,7 @@ module StateMachine
     # Creates a new state machine for the given attribute
     def initialize(owner_class, *args, &block)
       options = args.last.is_a?(Hash) ? args.pop : {}
-      assert_valid_keys(options, :attribute, :initial, :initialize, :action, :plural, :namespace, :integration, :messages, :use_transactions)
+      assert_valid_keys(options, :attribute, :initial, :initialize, :action, :plural, :namespace, :integration, :messages, :use_transactions, :isolation)
       
       # Find an integration that matches this machine's owner class
       if options.include?(:integration)
