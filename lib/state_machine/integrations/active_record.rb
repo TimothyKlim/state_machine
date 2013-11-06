@@ -527,7 +527,14 @@ module StateMachine
         def transaction(object)
           result = nil
           object.class.transaction do
-            raise ::ActiveRecord::Rollback unless result = yield
+            t_proc = proc { raise ::ActiveRecord::Rollback unless result = yield }
+            if object.need_isolation?
+              ActiveRecord::Base.isolation_level(:serializable) do
+                ActiveRecord::Base.uncached(&t_proc)
+              end
+            else
+              t_proc.call
+            end
           end
           result
         end

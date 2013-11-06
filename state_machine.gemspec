@@ -18,5 +18,6 @@ Gem::Specification.new do |s|
   
   s.add_development_dependency("rake")
   s.add_development_dependency("simplecov")
+  s.add_development_dependency("transaction_isolation")
   s.add_development_dependency("appraisal", "~> 0.5.0")
 end

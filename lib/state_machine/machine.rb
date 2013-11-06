@@ -569,7 +569,9 @@ module StateMachine
       @action_hook_defined = false
       self.owner_class = owner_class
       self.initial_state = options[:initial] unless sibling_machines.any?
-      
+
+      owner_class.define_singleton_method(:need_isolation?, proc { options[:isolation] })
+
       # Merge with sibling machine configurations
       add_sibling_machine_configs
       
